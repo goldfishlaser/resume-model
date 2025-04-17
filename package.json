@@ -13,5 +13,8 @@
     "versionControlTool": "git",
     "buildTool": "gradle",
     "loggingLevel": "error"
+  },
+  "dependencies": {
+    "@rse/nunjucks-cli": "^1.5.3"
   }
 }
