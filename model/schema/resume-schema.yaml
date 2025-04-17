@@ -1,0 +1,99 @@
+id: https://w3id.org/linkml/examples/personinfo
+name: resume-model-schema
+title: Resume Model Schema
+description: |-
+  Schema for a resume
+prefixes:                                 
+  linkml: https://w3id.org/linkml/
+imports:
+  - linkml:types
+default_range: string
+
+classes:
+  Container:
+    tree_root: true
+    slots:
+    - full_name
+    - role_title
+    - phone_number
+    - headline
+    - email_address
+    - skills_summary
+    - tools_proficiency
+    - professional_experience
+    - educational_experience
+    - volunteer_experience
+  Experience:
+    slots:
+    - organization
+    - start_date
+    - end_date
+    - summary
+  ProfessionalExperience:
+    is_a: Experience
+    slots:
+    - role_title
+  EducationalExperience:
+    is_a: Experience
+  VolunteerExperience:
+    is_a: ProfessionalExperience  
+
+slots:
+  full_name:
+    description: >-
+      Name of the person creating resume
+  role_title:
+    description: >-
+      Role 
+  phone_number:
+    description: >-
+      Phone number of the person creating resume
+  headline:
+    description: >-
+      Headline of the person creating resume           
+  email_address:
+    description: >-
+      Email address of the person creating resume 
+  skills_summary:
+    description: >-
+      List of skills e.g. "Copywriting"
+    multivalued: true
+    inlined_as_list: true
+  tools_proficiency:
+    description: >-
+      List of tools e.g. "LibreOffice"
+    multivalued: true 
+    inlined_as_list: true  
+  professional_experience:
+    description: >-
+      List of professional experience
+    multivalued: true  
+    inlined_as_list: true
+    range: ProfessionalExperience     
+  educational_experience:
+    description: >-
+      List of educational experience
+    multivalued: true
+    inlined_as_list: true 
+    range: EducationalExperience
+  volunteer_experience:
+    description: >-
+      List of volunteer experience
+    multivalued: true
+    inlined_as_list: true 
+    range: VolunteerExperience
+  organization:
+    description: >-
+      Name of institution or workplace
+  summary:
+    description: >-
+      Summary of education or experience
+  start_date:
+    description: >-
+      Start date
+    range: date
+  end_date:
+    description: >-
+      End date
+    range: date
+
