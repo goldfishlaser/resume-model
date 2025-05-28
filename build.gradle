@@ -57,3 +57,18 @@ tasks.register('buildModel') {
         }
     }
 }
+
+tasks.register('validateModel') {
+    dependsOn(buildModel)
+    inputs.files(fileTree("$modelBuildDir"))
+    .withPathSensitivity(PathSensitivity.ABSOLUTE)
+    doLast {
+        fileTree("$modelBuildDir").matching {
+            include "*$modelBuildExt"
+        }.each { file ->
+            exec {
+                commandLine "linkml-validate", "-s", "$schemaBuildDir/$schemaFileName", "$modelBuildDir/$file.name"
+            }
+        }
+    }
+}
