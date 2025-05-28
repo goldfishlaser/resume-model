@@ -15,8 +15,15 @@ def schemaSrcDir = "$projectDir/model/schema"
 def schemaOutDir = "schema"
 def schemaBuildDir = "$buildDir/$schemaOutDir"
 def unifiedSchemaPath = "$schemaBuildDir/$schemaFileName"
+def modelBuildFileName = "model.json"
+def modelSrcDirName = "model/resume"
+def modelSrcDir = "$projectDir/$modelSrcDirName"
+def modelSrcExt = ".yaml"
+def modelBuildDirName = "$modelSrcDirName"
+def modelBuildDir = "$buildDir/$modelBuildDirName"
+def modelBuildExt = ".json"
 
-tasks.register('buildUnifiedYaml', Exec) {
+tasks.register('buildUnifiedSchema', Exec) {
     inputs.files(fileTree("$schemaSrcDir"))
         .withPropertyName('sourceFiles')
         .withPathSensitivity(PathSensitivity.ABSOLUTE)
@@ -25,12 +32,28 @@ tasks.register('buildUnifiedYaml', Exec) {
     commandLine "bash", "-c", "gen-yaml $schemaSrcDir/$schemaFileName --mergeimports > $unifiedSchemaPath"
 }
 
-tasks.register('cleanupUnifiedYaml', Exec) {
-    dependsOn(buildUnifiedYaml)
+tasks.register('cleanupUnifiedSchema', Exec) {
+    dependsOn(buildUnifiedSchema)
     inputs.files(fileTree("$schemaOutDir"))
         .withPropertyName('sourceFiles')
         .withPathSensitivity(PathSensitivity.ABSOLUTE)
     outputs.dir(layout.buildDirectory.dir("$schemaOutDir"))
         .withPropertyName('outputDir')
     commandLine "yq", "-i", "del(.imports)", "$unifiedSchemaPath"
+}
+
+tasks.register('buildModel') {
+    dependsOn(cleanupUnifiedSchema)
+    inputs.files(fileTree("$modelSrcDir"))
+    .withPathSensitivity(PathSensitivity.ABSOLUTE)
+    outputs.dir(layout.buildDirectory.dir("$modelBuildDir"))
+    doLast {
+        fileTree("$modelSrcDir").matching {
+            include "**/*$modelSrcExt"
+        }.each { file ->
+            exec {
+                commandLine "bash", "-c", "yq -o=json $file > $modelBuildDir/$file.name$modelBuildExt"
+            }
+        }
+    }
 }
