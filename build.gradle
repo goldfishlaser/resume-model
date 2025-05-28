@@ -22,6 +22,12 @@ def modelSrcExt = ".yaml"
 def modelBuildDirName = "$modelSrcDirName"
 def modelBuildDir = "$buildDir/$modelBuildDirName"
 def modelBuildExt = ".json"
+def querySrcFileName = "resume.adoc.njk"
+def querySrcDirName = "views/"
+def querySrcDir = "$projectDir/$querySrcDirName"
+def queryBuildDirName = "$querySrcDirName"
+def queryBuildDir = "$buildDir/$queryBuildDirName"
+def queryBuildExt = ".adoc"
 
 tasks.register('buildUnifiedSchema', Exec) {
     inputs.files(fileTree("$schemaSrcDir"))
@@ -70,5 +76,21 @@ tasks.register('validateModel') {
                 commandLine "linkml-validate", "-s", "$schemaBuildDir/$schemaFileName", "$modelBuildDir/$file.name"
             }
         }
+    }
+}
+
+tasks.register('buildView') {
+    dependsOn(validateModel)
+    inputs.files(fileTree("$modelBuildDir"))
+        .withPathSensitivity(PathSensitivity.ABSOLUTE)
+    outputs.dir(layout.buildDirectory.dir("$queryBuildDir"))
+    doLast {
+       fileTree("$modelBuildDir").matching {
+           include "**/*$modelBuildExt"
+       }.each { file ->
+           exec {
+               commandLine "bash", "-c", "npm exec -- nunjucks -d $file $querySrcDir/$querySrcFileName > $queryBuildDir/$file.name$queryBuildExt"
+           }
+       }
     }
 }
