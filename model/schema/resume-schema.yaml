@@ -35,6 +35,8 @@ classes:
     - role_title
   EducationalExperience:
     is_a: Experience
+    slots:
+    - cert_name
   VolunteerExperience:
     is_a: ProfessionalExperience  
 
@@ -45,6 +47,9 @@ slots:
   role_title:
     description: >-
       Role 
+  cert_name:
+    description: >-
+      Name of degree or certification 
   phone_number:
     description: >-
       Phone number of the person creating resume
