@@ -1,0 +1,47 @@
+ifndef::backend-pdf[]
+image:https://img.shields.io/badge/License-MIT-yellow.svg[MIT License, link=https://opensource.org/licenses/MIT] image:https://img.shields.io/badge/View%20on-GitHub-orange[View on GitHub, link=https://github.com/capsulecorplab/tech-writer-resume] image:https://img.shields.io/badge/Download%20-PDF-blue[Download PDF, link=https://capsulecorplab.github.io/tech-writer-resume/jane-smith-resume.pdf]
+endif::[]
+
+== {{ full_name }}
+
+[%hardbreaks]
+{{ phone_number }}
+{{ email_address }}
+
+{{ headline }}
+
+=== Skill Summary
+
+[%hardbreaks]
+{% for skill in skills_summary %}
+- {{ skill }}
+{% endfor %}
+
+.Tools Proficiency
+--
+{% for tool in tools_proficiency %}
+- {{ tool }}
+{% endfor %}
+--
+
+=== Professional Experience
+
+{% for experience in professional_experience %}
+
+==== {{ experience.organization }} | _{{ experience.start_date }} - {{ experience.end_date }}_
+
+**{{ experience.role_title }}**
+
+{{ experience.summary }}
+
+{% endfor %}
+
+=== Education
+
+{% for education in educational_experience %}
+
+==== {{ education.organization }} | _{{ education.start_date }} - {{ education.end_date }}_
+
+{{ education.summary }}
+
+{% endfor %}
