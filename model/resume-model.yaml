@@ -1,0 +1,56 @@
+full_name: Jane Smith
+phone_number: 555-555-5555
+email_address: jane.smith@email.com
+headline: I have a passion for making resumes.
+skills_summary: 
+- Writing resumes.
+- Proficient with various markup formats.
+- Converting structured plain text documents into PDF.
+
+tools_proficiency:
+- Markdown
+- HTML
+- CSS
+- pandoc
+- Neovim
+- tmux
+- GNU Make
+- wkhtmltopdf
+
+professional_experience:
+- organization: Fantasy Resumes, Inc.
+  role_title: Resume Fairy
+  start_date: October 2016
+  end_date: Present
+  summary: Provide resumes that clients dream up under their pillows while they sleep. This involves deciphering each client’s dream with specialized tools and producing it for the client before she or he wakes. To accomplish this a template is used to convert structured plain text into a nice looking resume.
+- organization: Curriculum Vitae, LLC
+  role_title: Word Smith
+  start_date: July 2004 
+  end_date: October 2016
+  summary: Hammered out words to produce curriculum vitae for clients. Corrected errors detected by the typo snipers.
+
+- organization: Curriculum Vitae, LLC
+  role_title: Typo Sniper
+  start_date: July 2004
+  end_date: April 2010
+  summary: Analyzed the quality of curriculum vitae produced by the word smiths. Documents that contained errors and typos were sent back for corrections.
+
+educational_experience:
+  - organization: Resume University 
+  - start_date: September 2000 
+  - end_date: August 2004 
+  - cert_name: Bachelor’s degree in resume writing
+  - summary: Graduated with honors
+
+  - organization: Plain Text High School 
+  - start_date: September 1996
+  - end_date: August 2000 
+  - cert_name: Highschool diploma
+  - summary: Graduated with 3.8 GPA
+
+volunteer_experience:
+- organization: Helping Kids
+  role_title: Mentor
+  start_date: July 2004
+  end_date: April 2010
+  summary: Helped kids with writing their papers.
