@@ -15,6 +15,7 @@ def schemaSrcDir = "$projectDir/model/schema"
 def schemaOutDir = "schema"
 def schemaBuildDir = "$buildDir/$schemaOutDir"
 def unifiedSchemaPath = "$schemaBuildDir/$schemaFileName"
+def modelSrc = "$projectDir/model/resume-model.yaml"
 def modelBuildFileName = "model.json"
 def modelSrcDirName = "model/resume"
 def modelSrcDir = "$projectDir/$modelSrcDirName"
@@ -23,11 +24,13 @@ def modelBuildDirName = "$modelSrcDirName"
 def modelBuildDir = "$buildDir/$modelBuildDirName"
 def modelBuildExt = ".json"
 def querySrcFileName = "resume.adoc.njk"
+def querySrc = "$projectDir/views/resume.adoc.njk"
 def querySrcDirName = "views/"
 def querySrcDir = "$projectDir/$querySrcDirName"
 def queryBuildDirName = "$querySrcDirName"
 def queryBuildDir = "$buildDir/$queryBuildDirName"
 def queryBuildExt = ".adoc"
+def viewBuild = "$buildDir/resume.adoc"
 
 tasks.register('buildUnifiedSchema', Exec) {
     inputs.files(fileTree("$schemaSrcDir"))
@@ -48,49 +51,26 @@ tasks.register('cleanupUnifiedSchema', Exec) {
     commandLine "yq", "-i", "del(.imports)", "$unifiedSchemaPath"
 }
 
-tasks.register('buildModel') {
+/* tasks.register('buildModel') {
     dependsOn(cleanupUnifiedSchema)
     inputs.files(fileTree("$modelSrcDir"))
     .withPathSensitivity(PathSensitivity.ABSOLUTE)
     outputs.dir(layout.buildDirectory.dir("$modelBuildDir"))
-    doLast {
-        fileTree("$modelSrcDir").matching {
-            include "**/*$modelSrcExt"
-        }.each { file ->
-            exec {
-                commandLine "bash", "-c", "yq -o=json $file > $modelBuildDir/$file.name$modelBuildExt"
-            }
-        }
-    }
-}
+    commandLine "bash", "-c", "yq -o=json $modelSrc"
+} */
 
-tasks.register('validateModel') {
-    dependsOn(buildModel)
+tasks.register('validateModel', Exec) {
+    dependsOn(cleanupUnifiedSchema)
     inputs.files(fileTree("$modelBuildDir"))
     .withPathSensitivity(PathSensitivity.ABSOLUTE)
-    doLast {
-        fileTree("$modelBuildDir").matching {
-            include "*$modelBuildExt"
-        }.each { file ->
-            exec {
-                commandLine "linkml-validate", "-s", "$schemaBuildDir/$schemaFileName", "$modelBuildDir/$file.name"
-            }
-        }
-    }
+    commandLine "linkml-validate", "-s", "$schemaBuildDir/$schemaFileName", "$modelSrc"
 }
 
-tasks.register('buildView') {
+tasks.register('buildView', Exec) {
     dependsOn(validateModel)
     inputs.files(fileTree("$modelBuildDir"))
         .withPathSensitivity(PathSensitivity.ABSOLUTE)
     outputs.dir(layout.buildDirectory.dir("$queryBuildDir"))
-    doLast {
-       fileTree("$modelBuildDir").matching {
-           include "**/*$modelBuildExt"
-       }.each { file ->
-           exec {
-               commandLine "bash", "-c", "npm exec -- nunjucks -d $file $querySrcDir/$querySrcFileName > $queryBuildDir/$file.name$queryBuildExt"
-           }
-       }
-    }
+    commandLine "bash", "-c", "npm exec -- nunjucks -d $modelSrc $querySrc > $viewBuild"
+
 }
