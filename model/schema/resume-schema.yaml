@@ -96,9 +96,7 @@ slots:
   start_date:
     description: >-
       Start date
-    range: date
   end_date:
     description: >-
       End date
-    range: date
 
