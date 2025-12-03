@@ -16,6 +16,7 @@ tools_proficiency:
 - tmux
 - GNU Make
 - wkhtmltopdf
+- nunjucks
 
 professional_experience:
 - organization: Fantasy Resumes, Inc.

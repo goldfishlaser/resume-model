@@ -1,3 +1,30 @@
 # resume-model
 
 m30ml example project for rendering a resume
+
+## Requirements
+- npm
+- gradle
+- linkml
+
+## Install dependencies
+
+```bash
+npm i
+```
+
+## Generate your resume
+
+This repository includes an example file named `model/resume-model.yaml` you can use to generate your resume.
+
+After replacing the content with your own, use 
+
+```bash
+npm run build
+```
+
+Your generated resume will appear in `build/resume.adoc`.
+
+## Edit the view
+
+Nunjucks generates the view as an AsciiDoc file. To make changes to the view, such as section titles and the order thereof, you can edit `view/resume.adoc.njk`. 
