@@ -55,3 +55,17 @@ endif::[]
 
 {% endfor %}
 {% endif %}
+
+{% if (volunteer_experience | length) > 0 %}
+=== Volunteering
+
+{% for volunteer in volunteer_experience %}
+
+==== {{ volunteer.organization }} | _{{ volunteer.start_date }} - {{ volunteer.end_date }}_
+
+**{{ volunteer.role_title }}**
+
+{{ volunteer.summary }}
+
+{% endfor %}
+{% endif %}
