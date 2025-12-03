@@ -16,5 +16,8 @@
   },
   "dependencies": {
     "@rse/nunjucks-cli": "^1.5.3"
+  },
+  "scripts": {
+    "readme": "nunjucks -d package.json views/README.md.njk > README.md"
   }
 }

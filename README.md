@@ -1,3 +1,3 @@
-# Project README File
+# resume-model
 
-TBD from template.
+m30ml example project for rendering a resume
