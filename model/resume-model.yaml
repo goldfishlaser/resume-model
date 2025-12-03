@@ -28,7 +28,6 @@ professional_experience:
   start_date: July 2004 
   end_date: October 2016
   summary: Hammered out words to produce curriculum vitae for clients. Corrected errors detected by the typo snipers.
-
 - organization: Curriculum Vitae, LLC
   role_title: Typo Sniper
   start_date: July 2004
@@ -37,16 +36,15 @@ professional_experience:
 
 educational_experience:
   - organization: Resume University 
-  - start_date: September 2000 
-  - end_date: August 2004 
-  - cert_name: Bachelor’s degree in resume writing
-  - summary: Graduated with honors
-
+    start_date: September 2000 
+    end_date: August 2004 
+    cert_name: Bachelor’s degree in resume writing
+    summary: Graduated with honors
   - organization: Plain Text High School 
-  - start_date: September 1996
-  - end_date: August 2000 
-  - cert_name: Highschool diploma
-  - summary: Graduated with 3.8 GPA
+    start_date: September 1996
+    end_date: August 2000 
+    cert_name: Highschool diploma
+    summary: Graduated with 3.8 GPA
 
 volunteer_experience:
 - organization: Helping Kids
