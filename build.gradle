@@ -10,6 +10,9 @@ plugins {
     id 'base'
 }
 
+def packageJson = "$projectDir/package.json"
+def packageYaml = "$buildDir/package.yaml"
+def unifiedModelBuildPath = "$buildDir/unifiedModel.yaml"
 def schemaFileName = "resume-schema.yaml"
 def schemaSrcDir = "$projectDir/model/schema"
 def schemaOutDir = "schema"
@@ -51,17 +54,27 @@ tasks.register('cleanupUnifiedSchema', Exec) {
     commandLine "yq", "-i", "del(.imports)", "$unifiedSchemaPath"
 }
 
-/* tasks.register('buildModel') {
+ tasks.register('makePackageJsonYaml', Exec) {
     dependsOn(cleanupUnifiedSchema)
     inputs.files(fileTree("$modelSrcDir"))
     .withPathSensitivity(PathSensitivity.ABSOLUTE)
     outputs.dir(layout.buildDirectory.dir("$modelBuildDir"))
-    commandLine "bash", "-c", "yq -o=json $modelSrc"
-} */
+    commandLine "bash", "-c", "yq -p json -o yaml $packageJson > $packageYaml"
+}
+
+ tasks.register('buildModel', Exec) {
+    dependsOn(makePackageJsonYaml)
+    inputs.files(fileTree("$modelSrcDir"))
+    .withPathSensitivity(PathSensitivity.ABSOLUTE)
+    //commandLine "bash", "-c", "cat $modelSrc >> $unifiedModelBuildPath"
+    //commandLine "bash", "-c", "yq eval-all '. as \$item ireduce ({}; . * \$item)' $packageYaml $modelSrc > $unifiedModelBuildPath"
+    commandLine "bash", "-c", "cat $packageYaml > $unifiedModelBuildPath && cat $modelSrc >> $unifiedModelBuildPath"
+
+}
 
 tasks.register('validateModel', Exec) {
-    dependsOn(cleanupUnifiedSchema)
-    inputs.files(fileTree("$modelBuildDir"))
+    dependsOn(buildModel)
+    inputs.files(fileTree("$modelSrcDir"))
     .withPathSensitivity(PathSensitivity.ABSOLUTE)
     commandLine "linkml-validate", "-s", "$schemaBuildDir/$schemaFileName", "$modelSrc"
 }
@@ -71,8 +84,7 @@ tasks.register('buildView', Exec) {
     inputs.files(fileTree("$modelBuildDir"))
         .withPathSensitivity(PathSensitivity.ABSOLUTE)
     outputs.dir(layout.buildDirectory.dir("$queryBuildDir"))
-    commandLine "bash", "-c", "npm exec -- nunjucks -d $modelSrc $querySrc > $viewBuild"
-
+    commandLine "bash", "-c", "npm exec -- nunjucks -d $unifiedModelBuildPath $querySrc > $viewBuild"
 }
 
 tasks.named("assemble") {

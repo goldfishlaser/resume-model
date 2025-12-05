@@ -9,6 +9,8 @@
     "./packages/*",
     "./packages/@*/*"
   ],
+  "homepage": "https://goldfishlaser.github.io/resume-model",
+  "repository": "https://github.com/goldfishlaser/resume-model.git",
   "m30pm": {
     "versionControlTool": "git",
     "buildTool": "gradle",
