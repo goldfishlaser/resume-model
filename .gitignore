@@ -6,3 +6,6 @@ node_modules/
 # gradle
 .gradle/
 build/
+
+# deploy keys
+gh-pages*
