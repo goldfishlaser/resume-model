@@ -1,0 +1,76 @@
+ifndef::backend-pdf[]
+image:https://mirrors.creativecommons.org/presskit/icons/cc.svg[CC-BY-4.0] image:https://img.shields.io/badge/View%20on-GitHub-orange[View on GitHub, link=https://goldfishlaser.github.io/resume-model] 
+endif::[]
+
+== Jane Smith
+
+[%hardbreaks]
+555-555-5555
+jane.smith@email.com
+
+I have a passion for making resumes.
+
+
+.Tools Proficiency
+--
+- Markdown
+- HTML
+- CSS
+- pandoc
+- Neovim
+- tmux
+- GNU Make
+- wkhtmltopdf
+- nunjucks
+--
+
+=== Professional Experience
+
+
+==== Fantasy Resumes, Inc. | _October 2016 - Present_
+
+**Resume Fairy**
+
+Provide resumes that clients dream up under their pillows while they sleep. This involves deciphering each client’s dream with specialized tools and producing it for the client before she or he wakes. To accomplish this a template is used to convert structured plain text into a nice looking resume.
+
+
+==== Curriculum Vitae, LLC | _July 2004 - October 2016_
+
+**Word Smith**
+
+Hammered out words to produce curriculum vitae for clients. Corrected errors detected by the typo snipers.
+
+
+==== Curriculum Vitae, LLC | _July 2004 - April 2010_
+
+**Typo Sniper**
+
+Analyzed the quality of curriculum vitae produced by the word smiths. Documents that contained errors and typos were sent back for corrections.
+
+
+=== Education
+
+
+==== Resume University | _September 2000 - August 2004_
+
+Bachelor’s degree in resume writing
+
+Graduated with honors
+
+
+==== Plain Text High School | _September 1996 - August 2000_
+
+Highschool diploma
+
+Graduated with 3.8 GPA
+
+
+=== Volunteering
+
+
+==== Helping Kids | _July 2004 - April 2010_
+
+**Mentor**
+
+Helped kids with writing their papers.
+

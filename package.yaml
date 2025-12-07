@@ -1,0 +1,21 @@
+name: resume-model
+version: 0.1.0
+description: m30ml example project for rendering a resume
+author: Melanie Allen
+license: CC-BY-4.0
+packageManager: npm
+workspaces:
+  - ./packages/*
+  - ./packages/@*/*
+homepage: https://goldfishlaser.github.io/resume-model
+repository: https://github.com/goldfishlaser/resume-model.git
+m30pm:
+  versionControlTool: git
+  buildTool: gradle
+  loggingLevel: error
+dependencies:
+  '@rse/nunjucks-cli': ^1.5.3
+scripts:
+  build: npm run clean && ./gradlew --offline build && cd build/ && asciidoctor resume.adoc -o index.html
+  clean: ./gradlew --offline clean
+  readme: nunjucks -d package.json views/README.md.njk > README.md
