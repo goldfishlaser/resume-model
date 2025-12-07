@@ -20,7 +20,7 @@
     "@rse/nunjucks-cli": "^1.5.3"
   },
   "scripts": {
-    "build": "npm run clean && ./gradlew --offline build",
+    "build": "npm run clean && ./gradlew --offline build && cd build/ && asciidoctor resume.adoc -o index.html",
     "clean": "./gradlew --offline clean",
     "readme": "nunjucks -d package.json views/README.md.njk > README.md"
   }
